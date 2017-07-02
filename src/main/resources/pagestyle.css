@@ -1,0 +1,5 @@
+.pagebg
+{
+    -fx-background-image: url("imgs/background.jpg");
+    -fx-background-size: 100%;
+}

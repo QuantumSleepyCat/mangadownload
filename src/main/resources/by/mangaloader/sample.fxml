@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="739.0" styleClass="pagebg" stylesheets="@../../pagestyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.mangaloader.controllers.StartPageController">
+   <children>
+      <TextField fx:id="choseDirectory" layoutX="107.0" layoutY="153.0" prefHeight="25.0" prefWidth="443.0" />
+      <Button fx:id="chooseDirectoryButton" layoutX="566.0" layoutY="153.0" mnemonicParsing="false" onAction="#chooseDirectoryAction" prefHeight="25.0" prefWidth="72.0" text="Выбрать" />
+      <TextField fx:id="mangaUrl" layoutX="105.0" layoutY="272.0" prefHeight="25.0" prefWidth="531.0" />
+      <Label layoutX="107.0" layoutY="129.0" text="Выберите директроию для загрузки:" textFill="#f40055">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="choiceSite" layoutX="107.0" layoutY="213.0" prefHeight="25.0" prefWidth="203.0" />
+      <Label layoutX="107.0" layoutY="191.0" text="Выберите сайт:" textFill="#f40055">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="106.0" layoutY="249.0" text="Введите ссылку на мангу:" textFill="#f40055">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="107.0" layoutY="301.0" prefHeight="72.0" prefWidth="554.0" text="В качестве ссылки на мангу нужна часть из ссылки сайта, которая отвечает за название манги. Пример: ссылка на сайте - http://readmanga.me/one__piece, в поле нужно указать one__piece." textFill="#07e31d" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Button fx:id="goToMangaDownloadOptions" layoutX="635.0" layoutY="416.0" mnemonicParsing="false" onAction="#goToMangaDownloadOptionsAction" prefHeight="25.0" prefWidth="79.0" text="Далее" />
+   </children>
+</AnchorPane>
