@@ -42,7 +42,7 @@ public class DownloadChapter implements DownloadMethod {
 
     public void initImageList(String chapterUrl) throws IOException {
         imageListUrl=new ArrayList<String>();
-       Document document = Jsoup.connect(chapterUrl).get();
+       Document document = Jsoup.connect(chapterUrl+"?mature=1").get();
             Element options = document.select(".pageBlock.container.reader-bottom").first().select("script").first();
                 int imgsPosit = options.html().indexOf("rm_h.init");
                 String imgsAll = options.html().substring(imgsPosit);
