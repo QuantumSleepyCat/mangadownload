@@ -1,6 +1,10 @@
 package by.mangaloader.download;
 
+import by.mangaloader.download.image.DownloadImage;
 import by.mangaloader.parserattr.AttributesParser;
+import by.mangaloader.utils.ErrorShow;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,25 +23,41 @@ import java.util.List;
 public class DownloadChapter implements DownloadMethod {
 
     private List<String> imageListUrl;
+    private String chapterUrl;
+    private String mangaDirname;
+    private String mangaNameDir;
+    private String chapterDirname;
 
-    public boolean execute(String chapterUrl, String mangaDirname, String chapterDirname) throws IOException {
+
+    public DownloadChapter(String chapterUrl, String mangaDirname, String mangaNameDir,  String chapterDirname)
+    {
+        this.chapterUrl=chapterUrl;
+        this.mangaDirname=mangaDirname;
+        this.mangaNameDir =mangaNameDir;
+        this.chapterDirname=chapterDirname;
+    }
+
+    public void execute(){
+        try {
             initImageList(chapterUrl);
-        File dirAdd = new File(mangaDirname,chapterDirname);
-        if(!dirAdd.exists())
-        {
-            dirAdd.mkdirs();
-        }
-            BufferedImage image = null;//F:\program\test
+            File dirManga = createDir(mangaDirname,mangaNameDir);
+            File dirAdd = createDir(dirManga,chapterDirname);
             int counter=0;
+            DownloadImage[] downloadImage = new DownloadImage[imageListUrl.size()];
             for(String imgUrl:imageListUrl) {
                 counter++;
-                URL url = new URL(imgUrl);
-                image = ImageIO.read(url);
-                String format = new AttributesParser().getImgFormat(imgUrl);
-                ImageIO.write(image, format, new File(dirAdd,"Page_"+counter+"."+format));
+                downloadImage[counter-1] = new DownloadImage(counter,dirAdd,imgUrl);
+                downloadImage[counter-1].start();
             }
-
-        return false;
+            for (int i=0; i<downloadImage.length;i++)
+            {
+                downloadImage[i].join();
+            }
+        } catch (IOException e) {
+            ErrorShow.execute(e.getMessage());
+        } catch (InterruptedException e) {
+            ErrorShow.execute(e.getMessage());
+        }
     }
 
     public void initImageList(String chapterUrl) throws IOException {
@@ -61,5 +81,25 @@ public class DownloadChapter implements DownloadMethod {
                 }
     }
 
+
+    public File createDir(String existingDir, String newDir)
+    {
+        File dir = new File(existingDir,newDir);
+        if(!dir.exists())
+        {
+            dir.mkdirs();
+        }
+        return dir;
+    }
+
+    public File createDir(File existingDir, String newDir)
+    {
+        File dir = new File(existingDir,newDir);
+        if(!dir.exists())
+        {
+            dir.mkdirs();
+        }
+        return dir;
+    }
 
 }

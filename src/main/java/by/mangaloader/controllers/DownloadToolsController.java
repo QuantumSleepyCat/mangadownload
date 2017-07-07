@@ -3,6 +3,8 @@ package by.mangaloader.controllers;
 import by.mangaloader.ApplicationEntryPoint;
 import by.mangaloader.download.DownloadChapter;
 import by.mangaloader.download.DownloadMethod;
+import by.mangaloader.download.downloadmethods.DownloadCommand;
+import by.mangaloader.download.downloadmethods.DownloadOneChapter;
 import by.mangaloader.mangamodel.MangaInformationToms;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -47,6 +49,8 @@ public class DownloadToolsController implements Initializable{
     private Button downloadAll;
     @FXML
     private Button back;
+    @FXML
+    private ProgressBar downloadProgress;
 
     public String getChoseDirectory() {
         return choseDirectory;
@@ -101,53 +105,30 @@ public class DownloadToolsController implements Initializable{
     }
 
     public void downloadTomAction() throws IllegalAccessException, InstantiationException {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        DownloadMethod downloadMethod = DownloadChapter.class.newInstance();
-        try {
-            for(int chapter:mangaInformationToms.getTomChaotersMap().get(tomsList.getValue())) {
-                downloadMethod.execute(mangaUrl + "/vol" + tomsList.getValue() + "/" + chapter,
-                        choseDirectory, mangaName + "\\vol" + tomsList.getValue() + "chapter" + chapter);
-            }
 
-        } catch (IOException e) {
-            alert.setHeaderText("Ошибка скачивания");
-            alert.setContentText("Проблемы с соединением. Пожалуйста, повторите попытку.");
-            alert.showAndWait();
-        }
+//            for(int chapter:mangaInformationToms.getTomChaotersMap().get(tomsList.getValue())) {
+//                DownloadMethod downloadMethod = DownloadChapter.class.newInstance();
+//                downloadMethod.execute(mangaUrl + "/vol" + tomsList.getValue() + "/" + chapter,
+//                        choseDirectory, mangaName + "\\vol" + tomsList.getValue() + "chapter" + chapter);
+//            }
     }
 
     public void downloadChapterAction() throws IllegalAccessException, InstantiationException {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        DownloadMethod downloadMethod = DownloadChapter.class.newInstance();
-        try {
-         downloadMethod.execute(mangaUrl + "/vol" + tomsList.getValue()+ "/" + chaptersList.getValue(),
-                    choseDirectory, mangaName+"\\vol"+tomsList.getValue()+"chapter"+chaptersList.getValue());
-
-        } catch (IOException e) {
-            alert.setHeaderText("Ошибка скачивания");
-            alert.setContentText("Проблемы с соединением. Пожалуйста, повторите попытку.");
-            alert.showAndWait();
-        }
+        downloadProgress.setVisible(true);
+        DownloadCommand downloadCommand = new DownloadOneChapter(mangaUrl + "/vol" + tomsList.getValue() + "/" + chaptersList.getValue(),
+                choseDirectory,mangaName,"vol" + tomsList.getValue() + "chapter" + chaptersList.getValue(),
+                downloadProgress);
+        downloadCommand.execute();
     }
 
     public void downloadAllAction() throws IllegalAccessException, InstantiationException {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        DownloadMethod downloadMethod = DownloadChapter.class.newInstance();
-        try {
-        for(int tom:mangaInformationToms.getTomChaotersMap().keySet()) {
-            for(int chapter:mangaInformationToms.getTomChaotersMap().get(tom)) {
-                downloadMethod.execute(mangaUrl + "/vol" + tom + "/" + chapter,
-                        choseDirectory, mangaName + "\\vol" + tom + "chapter" + chapter);
-            }
-        }
-        } catch (IOException e) {
-            alert.setHeaderText("Ошибка скачивания");
-            alert.setContentText("Проблемы с соединением. Пожалуйста, повторите попытку.");
-            alert.showAndWait();
-        }
+//        DownloadMethod downloadMethod = DownloadChapter.class.newInstance();
+//        for(int tom:mangaInformationToms.getTomChaotersMap().keySet()) {
+//            for(int chapter:mangaInformationToms.getTomChaotersMap().get(tom)) {
+//                downloadMethod.execute(mangaUrl + "/vol" + tom + "/" + chapter,
+//                        choseDirectory, mangaName + "\\vol" + tom + "chapter" + chapter);
+//            }
+//        }
     }
 
     public void backAction() throws Exception {
@@ -157,6 +138,6 @@ public class DownloadToolsController implements Initializable{
 
 
     public void initialize(URL location, ResourceBundle resources) {
-
+        downloadProgress.setVisible(false);
     }
 }
