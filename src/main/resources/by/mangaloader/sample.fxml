@@ -7,13 +7,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="739.0" styleClass="pagebg" stylesheets="@../../pagestyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.mangaloader.controllers.StartPageController">
    <children>
       <TextField fx:id="choseDirectory" layoutX="107.0" layoutY="153.0" prefHeight="25.0" prefWidth="443.0" />
       <Button fx:id="chooseDirectoryButton" layoutX="566.0" layoutY="153.0" mnemonicParsing="false" onAction="#chooseDirectoryAction" prefHeight="25.0" prefWidth="72.0" text="Выбрать" />
       <TextField fx:id="mangaUrl" layoutX="105.0" layoutY="272.0" prefHeight="25.0" prefWidth="531.0" />
-      <Label layoutX="107.0" layoutY="129.0" text="Выберите директроию для загрузки:" textFill="#f40055">
+      <Label layoutX="107.0" layoutY="129.0" text="Выберите директорию для загрузки:" textFill="#f40055">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
