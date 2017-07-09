@@ -56,6 +56,7 @@ public class DownloadChapter implements DownloadMethod {
         } catch (IOException e) {
             ErrorShow.execute(e.getMessage());
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             ErrorShow.execute(e.getMessage());
         }
     }
@@ -77,7 +78,7 @@ public class DownloadChapter implements DownloadMethod {
                              attrImg[0].replace("'","")+
                              attrImg[2].replace("\"","");
                      imageListUrl.add(imgUrl);
-                     System.out.println(imgUrl);
+                    // System.out.println(imgUrl);
                 }
     }
 

@@ -4,8 +4,11 @@ import by.mangaloader.ApplicationEntryPoint;
 import by.mangaloader.download.DownloadChapter;
 import by.mangaloader.download.DownloadMethod;
 import by.mangaloader.download.downloadmethods.DownloadCommand;
+import by.mangaloader.download.downloadmethods.DownloadManga;
 import by.mangaloader.download.downloadmethods.DownloadOneChapter;
+import by.mangaloader.download.downloadmethods.DownloadTom;
 import by.mangaloader.mangamodel.MangaInformationToms;
+import by.mangaloader.utils.DisableOptions;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -33,6 +36,8 @@ public class DownloadToolsController implements Initializable{
     private String mangaUrl;
     private String mangaName;
     private String choseDirectory;
+    private DisableOptions disableOptions;
+    private DownloadCommand downloadCommandForAll;
     @FXML
     private ImageView logoOfManga;
     @FXML
@@ -51,6 +56,8 @@ public class DownloadToolsController implements Initializable{
     private Button back;
     @FXML
     private ProgressBar downloadProgress;
+    @FXML
+    private Button stopDownload;
 
     public String getChoseDirectory() {
         return choseDirectory;
@@ -104,31 +111,43 @@ public class DownloadToolsController implements Initializable{
         chaptersList.setValue(chaptersList.getItems().get(0));
     }
 
-    public void downloadTomAction() throws IllegalAccessException, InstantiationException {
 
-//            for(int chapter:mangaInformationToms.getTomChaotersMap().get(tomsList.getValue())) {
-//                DownloadMethod downloadMethod = DownloadChapter.class.newInstance();
-//                downloadMethod.execute(mangaUrl + "/vol" + tomsList.getValue() + "/" + chapter,
-//                        choseDirectory, mangaName + "\\vol" + tomsList.getValue() + "chapter" + chapter);
-//            }
+    public void stopDownloadAction()
+    {
+        downloadCommandForAll.stop();
+    }
+
+    public void downloadTomAction() throws IllegalAccessException, InstantiationException {
+        downloadProgress.setVisible(true);
+        stopDownload.setVisible(true);
+        disableOptions.disable();
+            DownloadCommand downloadCommand = new DownloadTom(mangaUrl + "/vol" + tomsList.getValue() + "/",
+                    choseDirectory, mangaName, "vol" + tomsList.getValue() + "chapter",
+                    mangaInformationToms.getTomChaotersMap().get(tomsList.getValue()), downloadProgress, stopDownload,disableOptions);
+            downloadCommandForAll = downloadCommand;
+            downloadCommand.execute();
     }
 
     public void downloadChapterAction() throws IllegalAccessException, InstantiationException {
         downloadProgress.setVisible(true);
+        stopDownload.setVisible(true);
+        disableOptions.disable();
         DownloadCommand downloadCommand = new DownloadOneChapter(mangaUrl + "/vol" + tomsList.getValue() + "/" + chaptersList.getValue(),
                 choseDirectory,mangaName,"vol" + tomsList.getValue() + "chapter" + chaptersList.getValue(),
-                downloadProgress);
+                downloadProgress,stopDownload,disableOptions);
+        downloadCommandForAll=downloadCommand;
         downloadCommand.execute();
     }
 
     public void downloadAllAction() throws IllegalAccessException, InstantiationException {
-//        DownloadMethod downloadMethod = DownloadChapter.class.newInstance();
-//        for(int tom:mangaInformationToms.getTomChaotersMap().keySet()) {
-//            for(int chapter:mangaInformationToms.getTomChaotersMap().get(tom)) {
-//                downloadMethod.execute(mangaUrl + "/vol" + tom + "/" + chapter,
-//                        choseDirectory, mangaName + "\\vol" + tom + "chapter" + chapter);
-//            }
-//        }
+        downloadProgress.setVisible(true);
+        stopDownload.setVisible(true);
+        disableOptions.disable();
+        DownloadCommand downloadCommand = new DownloadManga(mangaUrl,
+                choseDirectory,mangaName,mangaInformationToms.getTomChaotersMap(),downloadProgress,
+                mangaInformationToms.getTomChaotersMap().keySet(),stopDownload,disableOptions);
+        downloadCommandForAll=downloadCommand;
+        downloadCommand.execute();
     }
 
     public void backAction() throws Exception {
@@ -139,5 +158,8 @@ public class DownloadToolsController implements Initializable{
 
     public void initialize(URL location, ResourceBundle resources) {
         downloadProgress.setVisible(false);
+        stopDownload.setVisible(false);
+        disableOptions = new DisableOptions(tomsList, chaptersList, downloadTom,
+                downloadChapter, downloadAll, back);
     }
 }

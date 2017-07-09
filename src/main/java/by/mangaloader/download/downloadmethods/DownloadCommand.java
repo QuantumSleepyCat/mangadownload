@@ -5,4 +5,5 @@ package by.mangaloader.download.downloadmethods;
  */
 public interface DownloadCommand extends Runnable{
     void execute();
+    void stop();
 }

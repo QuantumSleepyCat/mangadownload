@@ -32,10 +32,11 @@
          </font>
       </Label>
       <Button fx:id="downloadChapter" layoutX="582.0" layoutY="186.0" mnemonicParsing="false" onAction="#downloadChapterAction" prefHeight="25.0" prefWidth="132.0" text="Скачать главу" />
-      <Button fx:id="downloadAll" layoutX="395.0" layoutY="390.0" mnemonicParsing="false" onAction="#downloadAllAction" prefHeight="25.0" prefWidth="163.0" text="Скачать всю мангу" />
-      <Button fx:id="back" layoutX="582.0" layoutY="390.0" mnemonicParsing="false" onAction="#backAction" prefHeight="25.0" prefWidth="81.0" text="Назад" />
+      <Button fx:id="downloadAll" layoutX="395.0" layoutY="366.0" mnemonicParsing="false" onAction="#downloadAllAction" prefHeight="25.0" prefWidth="163.0" text="Скачать всю мангу" />
+      <Button fx:id="back" layoutX="582.0" layoutY="366.0" mnemonicParsing="false" onAction="#backAction" prefHeight="25.0" prefWidth="81.0" text="Назад" />
       <ChoiceBox fx:id="tomsList" layoutX="395.0" layoutY="118.0" prefHeight="25.0" prefWidth="163.0" />
       <ChoiceBox fx:id="chaptersList" layoutX="395.0" layoutY="186.0" prefHeight="25.0" prefWidth="163.0" />
       <ProgressBar fx:id="downloadProgress" layoutX="49.0" layoutY="426.0" prefHeight="18.0" prefWidth="269.0" />
+      <Button fx:id="stopDownload" layoutX="335.0" layoutY="423.0" mnemonicParsing="false" onAction="#stopDownloadAction" prefHeight="25.0" prefWidth="81.0" text="Прервать" />
    </children>
 </AnchorPane>
