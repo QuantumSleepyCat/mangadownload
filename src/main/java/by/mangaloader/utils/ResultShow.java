@@ -2,6 +2,8 @@ package by.mangaloader.utils;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 
 /**
  * Created by QuantumCat on 09.07.2017.
@@ -15,7 +17,8 @@ public class ResultShow {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("");
                 alert.setHeaderText("Результат загрузки");
-                alert.setContentText("Загрузка завершена. Если во время скачивания возникли ошибки, повторите загрузку.");
+                alert.setContentText("Загрузка завершена.\n" +
+                        "При возникновении ошибки, загрузите заново.");
                 alert.showAndWait();
             }
         });
