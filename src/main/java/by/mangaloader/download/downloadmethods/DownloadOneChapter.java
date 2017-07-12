@@ -21,12 +21,15 @@ public class DownloadOneChapter implements DownloadCommand{
     private ProgressBar progressBar;
     private Button stopBut;
     private DisableOptions disableOptions;
+    private String tomname;
 
-    public DownloadOneChapter(String mangaURL, String choseDir, String mangaName, String chapterDirName, ProgressBar progressBar,
+    public DownloadOneChapter(String mangaURL, String choseDir, String mangaName, String tomname,
+                              String chapterDirName, ProgressBar progressBar,
                               Button stopBut,DisableOptions disableOptions) {
         this.mangaURL = mangaURL;
         this.choseDir = choseDir;
         this.mangaName = mangaName;
+        this.tomname=tomname;
         this.chapterDirName = chapterDirName;
         this.progressBar = progressBar;
         this.stopBut=stopBut;
@@ -51,7 +54,7 @@ public class DownloadOneChapter implements DownloadCommand{
 
     public void run() {
         DownloadMethod downloadMethod = new DownloadChapter(mangaURL,
-                choseDir,mangaName, chapterDirName);
+                choseDir,mangaName, chapterDirName, tomname);
         downloadMethod.execute();
         ResultShow.execute();
         Platform.runLater(new Runnable() {

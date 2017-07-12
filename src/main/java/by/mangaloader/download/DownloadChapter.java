@@ -27,21 +27,24 @@ public class DownloadChapter implements DownloadMethod {
     private String mangaDirname;
     private String mangaNameDir;
     private String chapterDirname;
+    private String tomname;
 
 
-    public DownloadChapter(String chapterUrl, String mangaDirname, String mangaNameDir,  String chapterDirname)
+    public DownloadChapter(String chapterUrl, String mangaDirname, String mangaNameDir,  String chapterDirname, String tomname)
     {
         this.chapterUrl=chapterUrl;
         this.mangaDirname=mangaDirname;
         this.mangaNameDir =mangaNameDir;
         this.chapterDirname=chapterDirname;
+        this.tomname=tomname;
     }
 
     public void execute(){
         try {
             initImageList(chapterUrl);
             File dirManga = createDir(mangaDirname,mangaNameDir);
-            File dirAdd = createDir(dirManga,chapterDirname);
+            File dirAddTom = createDir(dirManga,tomname);
+            File dirAdd = createDir(dirAddTom,chapterDirname);
             int counter=0;
             DownloadImage[] downloadImage = new DownloadImage[imageListUrl.size()];
             for(String imgUrl:imageListUrl) {

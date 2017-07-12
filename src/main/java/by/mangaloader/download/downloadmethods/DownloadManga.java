@@ -58,7 +58,7 @@ public class DownloadManga implements DownloadCommand{
         for(int tom:tomsSet) {
             for (int chapter : mapWithChapters.get(tom)) {
                 DownloadMethod downloadMethod = new DownloadChapter(mangaURL + "/vol" + tom + "/" + chapter,
-                        choseDir, mangaName, "vol" + tom + "chapter" + chapter);
+                        choseDir, mangaName, "chapter" + chapter,"vol" + tom);
                 downloadMethod.execute();
             }
         }

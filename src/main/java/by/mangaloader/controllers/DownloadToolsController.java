@@ -122,7 +122,7 @@ public class DownloadToolsController implements Initializable{
         stopDownload.setVisible(true);
         disableOptions.disable();
             DownloadCommand downloadCommand = new DownloadTom(mangaUrl + "/vol" + tomsList.getValue() + "/",
-                    choseDirectory, mangaName, "vol" + tomsList.getValue() + "chapter",
+                    choseDirectory, mangaName, "vol" + tomsList.getValue() , "chapter",
                     mangaInformationToms.getTomChaotersMap().get(tomsList.getValue()), downloadProgress, stopDownload,disableOptions);
             downloadCommandForAll = downloadCommand;
             downloadCommand.execute();
@@ -133,7 +133,7 @@ public class DownloadToolsController implements Initializable{
         stopDownload.setVisible(true);
         disableOptions.disable();
         DownloadCommand downloadCommand = new DownloadOneChapter(mangaUrl + "/vol" + tomsList.getValue() + "/" + chaptersList.getValue(),
-                choseDirectory,mangaName,"vol" + tomsList.getValue() + "chapter" + chaptersList.getValue(),
+                choseDirectory,mangaName,"vol" + tomsList.getValue() , "chapter" + chaptersList.getValue(),
                 downloadProgress,stopDownload,disableOptions);
         downloadCommandForAll=downloadCommand;
         downloadCommand.execute();

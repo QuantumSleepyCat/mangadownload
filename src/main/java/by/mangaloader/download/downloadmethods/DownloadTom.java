@@ -24,8 +24,9 @@ public class DownloadTom implements DownloadCommand {
     private ProgressBar progressBar;
     private Button stopBut;
     private DisableOptions disableOptions;
+    private String tomname;
 
-    public DownloadTom(String mangaURL, String choseDir, String mangaName, String chapterDirName,
+    public DownloadTom(String mangaURL, String choseDir, String mangaName, String tomname, String chapterDirName,
                        List<Integer> chapterList, ProgressBar progressBar, Button stopBut,DisableOptions disableOptions) {
         this.mangaURL = mangaURL;
         this.choseDir = choseDir;
@@ -35,6 +36,7 @@ public class DownloadTom implements DownloadCommand {
         this.progressBar = progressBar;
         this.stopBut=stopBut;
         this.disableOptions=disableOptions;
+        this.tomname=tomname;
         thread = new Thread(this);
     }
 
@@ -57,7 +59,7 @@ public class DownloadTom implements DownloadCommand {
 
             for (int chapter : chapterList) {
                 DownloadMethod downloadMethod = new DownloadChapter(mangaURL + chapter,
-                        choseDir, mangaName, chapterDirName + chapter);
+                        choseDir, mangaName, chapterDirName + chapter,tomname);
                 downloadMethod.execute();
             }
         ResultShow.execute();
